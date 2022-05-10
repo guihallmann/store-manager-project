@@ -9,14 +9,11 @@ const getAll = async (req, res, next) => {
   }
 };
 
-const getById = async (req, res, next) => {
-  try {
-    const { id } = req.params;
-    const sale = await salesService.getById(id);
-    return res.status(200).json(sale);
-  } catch (err) {
-    next(err);
-  }
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const sale = await salesService.getById(id);
+  if (!sale) return res.status(404).json({ message: 'Sale not found' });
+  return res.status(200).json(sale);
 };
 
 module.exports = {

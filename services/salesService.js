@@ -1,21 +1,36 @@
 const salesModel = require('../models/salesModel');
 
+const handleError = (status, message) => ({ status, message });
+
 const getAll = async () => {
   const sales = await salesModel.getAll();
-  if (!sales) {
-    const erro = { status: 404, message: 'Sales not found' };
-    throw erro;
+  if (sales.length === 0) {
+    throw handleError(404, 'Sales not found');
   }
-  return sales;
+
+  const formatSales = sales.map((sale) => ({
+    saleId: sale.sale_id,
+    date: sale.date,
+    productId: sale.product_id,
+    quantity: sale.quantity,
+  }));
+  
+  return formatSales;
 };
 
 const getById = async (id) => {
-  const sale = await salesModel.getById(id);
-  if (!sale) {
-    const erro = { status: 404, message: 'Sales not found' };
-    throw erro;    
+  const sales = await salesModel.getById(id);
+  if (sales.length === 0) {
+    return false;    
   }
-  return sale;
+
+  const formatSale = sales.map((sale) => ({
+    date: sale.date,
+    productId: sale.product_id,
+    quantity: sale.quantity,
+  }));
+
+  return formatSale;
 };
 
 module.exports = {
