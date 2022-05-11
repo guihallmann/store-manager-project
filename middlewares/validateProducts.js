@@ -1,14 +1,13 @@
-const Joi = require('joi');
-
-const PRODUCT = Joi.object({
-  name: Joi.string().min(5).max().required,
-  quantity: Joi.number.min(1).required,
-});
-
 const validateProduct = (req, res, next) => {
   const { name, quantity } = req.body;
-  const { error } = PRODUCT.validate({ name, quantity });
-  if (error) console.log(error);
+  if (!name) return res.status(400).json({ message: '"name" is required' });
+  if (name.length < 5) {
+    return res.status(422).json({ message: '"name" length must be at least 5 characters long' });
+  }
+  if (!quantity) return res.status(400).json({ message: '"quantity" is required' });
+  if (quantity <= 0) {
+    return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
+  }
   next();
 };
 
