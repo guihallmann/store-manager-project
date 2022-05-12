@@ -20,9 +20,9 @@ const getByName = async (name) => {
 
 const create = async (name, quantity) => {
   const query = 'INSERT INTO products (name, quantity) VALUES (?, ?)';
-  const [productId] = await connection.execute(query, [name, quantity]);
+  const [{ insertId }] = await connection.execute(query, [name, quantity]);
   const product = {
-    id: productId.insertId,
+    id: insertId,
     name,
     quantity,
   };

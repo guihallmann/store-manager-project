@@ -33,7 +33,14 @@ const getById = async (id) => {
   return formatSale;
 };
 
+const create = async (sale) => {
+  const newSaleId = await salesModel.create();
+  await Promise.all(sale.map((e) => salesModel.saleProduct(newSaleId, e.productId, e.quantity)));
+  return { id: newSaleId, itemsSold: sale };
+};
+
 module.exports = {
   getAll,
   getById,
+  create,
 };
