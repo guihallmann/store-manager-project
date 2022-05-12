@@ -40,8 +40,8 @@ const create = async (sale) => {
 };
 
 const update = async (id, saleArr) => {
-  const updatedSale = await salesModel.update(id, saleArr);
-  return updatedSale;
+  await Promise.all(saleArr.map((e) => salesModel.update(id, e.productId, e.quantity)));
+  return { saleId: id, itemUpdated: saleArr };
 };
 
 module.exports = {
