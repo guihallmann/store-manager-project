@@ -8,9 +8,9 @@ const validateProduct = require('../middlewares/validateProducts');
 
 router.get('/products', productsController.getAll);
 router.get('/products/:id', productsController.getById);
-
 router.post('/products', validateProduct, productsController.create);
 router.put('/products/:id', validateProduct, productsController.update);
+router.delete('/products/:id', productsController.remove);
 
 router.get('/sales', salesController.getAll);
 router.get('/sales/:id', salesController.getById);
