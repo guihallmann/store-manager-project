@@ -4,20 +4,21 @@ const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 
 describe('Lists all the products on the DB', () => {
-  describe('When there is products', () => {
+  describe('When there is no product', () => {
     
     const resultExec = [];
+    const id = 7
 
     before(() => {
-      sinon.stub(productsModel, 'getAll').resolves(resultExec);
+      sinon.stub(productsModel, 'getById').resolves(resultExec);
     })
 
     after(() => {
-      productsModel.getAll.restore();
+      productsModel.getById.restore();
     })
 
     it('Should return false', async () => {
-      const result = await productsService.getAll();
+      const result = await productsService.getById(id);
       expect(result).to.be.equal(false);
     })
   });
@@ -31,31 +32,28 @@ describe('Lists all the products on the DB', () => {
       }
     ];
 
+    const id = 1;
+
     before(() => {
-      sinon.stub(productsModel, 'getAll').resolves(resultExec);
+      sinon.stub(productsModel, 'getById').resolves(resultExec);
     })
 
     after(() => {
-      productsModel.getAll.restore();
+      productsModel.getById.restore();
     })
 
-    it('Should return an array', async () => {
-      const result = await productsService.getAll();
-      expect(result).to.be.an('array');
-    })
-
-    it('Should not be empty', async () => {
-      const result = await productsService.getAll();
-      expect(result).to.be.not.empty;
-    })
-
-    it('Should have objects inside', async () => {
-      const [result] = await productsService.getAll();
+    it('Should return an object', async () => {
+      const result = await productsService.getById(id);
       expect(result).to.be.an('object');
     })
 
+    it('Should not be empty', async () => {
+      const result = await productsService.getById(id);
+      expect(result).to.be.not.empty;
+    })
+
     it('Should have the keys id, name and quantity', async () =>{
-      const [result] = await productsService.getAll();
+      const result = await productsService.getById(id);
       expect(result).to.be.includes.all.keys('id', 'name', 'quantity');
     })
   })
