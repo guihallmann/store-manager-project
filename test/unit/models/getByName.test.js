@@ -3,10 +3,10 @@ const sinon = require('sinon');
 const productsModel = require('../../../models/productsModel');
 const connection = require('../../../models/connection');
 
-describe('Lists all the products on the DB', () => {
-  describe('When there are no products', () => {
-    
+describe('Lists a specific product by its Id', () => {
+  describe('When there is no product', () => {
     const resultExec = [[]];
+    const name = 'xablablau'
 
     before(() => {
       sinon.stub(connection, 'execute').resolves(resultExec);
@@ -17,17 +17,17 @@ describe('Lists all the products on the DB', () => {
     })
 
     it('Should return an array', async () => {
-      const result = await productsModel.getAll();
+      const result = await productsModel.getByName(name);
       expect(result).to.be.an('array');
     })
 
     it('Should be empty', async () => {
-      const result = await productsModel.getAll();
+      const result = await productsModel.getByName(name);
       expect(result).to.be.empty;
     })
-  });
+  })
   
-  describe('When there are products on the DB', () => {
+  describe('When there is a specific product', async () => {
     const resultExec = [[
       {
         id: 1,
@@ -36,6 +36,8 @@ describe('Lists all the products on the DB', () => {
       }
     ]];
 
+    const name = 'Martelo do Thor';
+
     before(() => {
       sinon.stub(connection, 'execute').resolves(resultExec);
     })
@@ -45,22 +47,22 @@ describe('Lists all the products on the DB', () => {
     })
 
     it('Should return an array', async () => {
-      const result = await productsModel.getAll();
+      const result = await productsModel.getByName(name);
       expect(result).to.be.an('array');
     })
 
     it('Should not be empty', async () => {
-      const result = await productsModel.getAll();
+      const result = await productsModel.getByName(name);
       expect(result).to.be.not.empty;
     })
 
     it('Should have objects inside', async () => {
-      const [result] = await productsModel.getAll();
+      const [result] = await productsModel.getByName(name);
       expect(result).to.be.an('object');
     })
 
     it('Should have the keys id, name and quantity', async () =>{
-      const [result] = await productsModel.getAll();
+      const [result] = await productsModel.getByName(name);
       expect(result).to.be.includes.all.keys('id', 'name', 'quantity');
     })
   })

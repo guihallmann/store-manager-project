@@ -28,13 +28,13 @@ describe('Lists a specific product by its Id', () => {
   })
   
   describe('When there is a specific product', async () => {
-    const resultExec = [
+    const resultExec = [[
       {
         id: 1,
         name: 'Martelo do Thor',
         quantity: 10
       }
-    ];
+    ]];
 
     const id = 1;
 
@@ -47,23 +47,23 @@ describe('Lists a specific product by its Id', () => {
     })
 
     it('Should return an array', async () => {
-      const result = await productsModel.getById(1);
+      const result = await productsModel.getById(id);
       expect(result).to.be.an('array');
     })
 
     it('Should not be empty', async () => {
-      const result = await productsModel.getById(1);
+      const result = await productsModel.getById(id);
       expect(result).to.be.not.empty;
     })
 
     it('Should have objects inside', async () => {
-      const [result] = await productsModel.getById(1);
+      const [result] = await productsModel.getById(id);
       expect(result).to.be.an('object');
     })
 
     it('Should have the keys id, name and quantity', async () =>{
-      const [result] = await productsModel.getById(1);
+      const [result] = await productsModel.getById(id);
       expect(result).to.be.includes.all.keys('id', 'name', 'quantity');
     })
   })
-});
+})
