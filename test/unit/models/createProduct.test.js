@@ -7,20 +7,25 @@ describe('Inserts a new product on the DB', () => {
   const name = 'Martelo do Thor';
   const quantity = 10;
 
-  before(async () => {
-    const execute = [{ insertId: 1 }];
+  before(() => {
+    const resultExec = [{ insertId: 1 }];
+    sinon.stub(connection, 'execute').resolves(resultExec);
+  })
 
-    sinon.stub(connection, "execute").resolves(execute);
-  });
-
-  after(async () => {
+  after(() => {
     connection.execute.restore();
-  });
+  })
   
   describe('When its successfully added', async () => {
     it('Should return an object', async () => {
       const result = await productsModel.create(name, quantity);
       expect(result).to.be.an('object');
     })
+
+    it('Should have and Id property', async () => {
+      const result = await productsModel.create(name, quantity);
+      expect(result).to.have.a.property('id');
+    })
+
   })
 })
