@@ -1,11 +1,9 @@
 const productsModel = require('../models/productsModel');
 
-const handleError = (status, message) => ({ status, message });
-
 const getAll = async () => {
   const products = await productsModel.getAll();
   if (products.length === 0) {
-    throw handleError(404, 'Product not found');
+    return false;
   }
   return products;
 };
