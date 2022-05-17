@@ -4,7 +4,7 @@ const productsController = require('../../../controllers/productsController');
 const productsService = require('../../../services/productsService');
 
 describe('Chamada do controller getAll', () => {
-  describe('When there are no movies in the DB', () => {
+  describe.only('When there are no movies in the DB', () => {
     const response = {}
     const request = {}
 
@@ -18,9 +18,11 @@ describe('Chamada do controller getAll', () => {
       productsService.getAll.restore();
     })
 
-    it('status called with 404', async () => {
+    it('Should be called status 404', async () => {
       await productsController.getAll(request, response);
-      expect(response.status.calledWith(404).to.be.equal(true));
+      expect(response.status.calledWith(404)).to.be.equal(true);
     })
+
+    it('')
   })
 });
