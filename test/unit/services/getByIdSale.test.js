@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const salesModel = require('../../../models/salesModel');
 const salesService = require('../../../services/salesService');
 
-describe('======================Lists a specific sale by its Id ====================', () => {
+describe('Lists a specific sale by its Id', () => {
   describe('When there is no sale', () => {
     
     const resultExec = [];
