@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 
-describe('Lists all the products on the DB', () => {
+describe('Lists a specific product by its Id', () => {
   describe('When there is no product', () => {
     
     const resultExec = [];

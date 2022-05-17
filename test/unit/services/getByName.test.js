@@ -3,27 +3,27 @@ const sinon = require('sinon');
 const productsModel = require('../../../models/productsModel');
 const productsService = require('../../../services/productsService');
 
-describe('Lists all the products on the DB', () => {
-  describe('When there are no products', () => {
+describe('Lists a specific product by its name', () => {
+  describe('When there is no product', () => {
     
     const resultExec = [];
     const name = 'xablablau'
 
     before(() => {
-      sinon.stub(productsModel, 'getAll').resolves(resultExec);
+      sinon.stub(productsModel, 'getByName').resolves(resultExec);
     })
 
     after(() => {
-      productsModel.getAll.restore();
+      productsModel.getByName.restore();
     })
 
-    it('Should return false', async () => {
-      const result = await productsService.getAll();
-      expect(result).to.be.equal(false);
+    it('Should return true', async () => {
+      const result = await productsService.getByName(name);
+      expect(result).to.be.equal(true);
     })
   });
   
-  describe('When there are products on the DB', () => {
+  describe('When there is a specific product', () => {
     const resultExec = [
       {
         id: 1,
@@ -31,33 +31,19 @@ describe('Lists all the products on the DB', () => {
         quantity: 10
       }
     ];
+    const name = 'Martelo do Thor'
 
     before(() => {
-      sinon.stub(productsModel, 'getAll').resolves(resultExec);
+      sinon.stub(productsModel, 'getByName').resolves(resultExec);
     })
 
     after(() => {
-      productsModel.getAll.restore();
+      productsModel.getByName.restore();
     })
 
-    it('Should return an array', async () => {
-      const result = await productsService.getAll();
-      expect(result).to.be.an('array');
-    })
-
-    it('Should not be empty', async () => {
-      const result = await productsService.getAll();
-      expect(result).to.be.not.empty;
-    })
-
-    it('Should have objects inside', async () => {
-      const [result] = await productsService.getAll();
-      expect(result).to.be.an('object');
-    })
-
-    it('Should have the keys id, name and quantity', async () =>{
-      const [result] = await productsService.getAll();
-      expect(result).to.be.includes.all.keys('id', 'name', 'quantity');
+    it('Should return false', async () => {
+      const result = await productsService.getByName(name);
+      expect(result).to.be.equal(false);
     })
   })
 });
