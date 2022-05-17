@@ -8,11 +8,11 @@ describe('Lists a specific product by its Id', () => {
     const resultExec = [[]];
     const id = 7
 
-    before(() => {
+    beforeEach(() => {
       sinon.stub(connection, 'execute').resolves(resultExec);
     })
 
-    after(() => {
+    afterEach(() => {
       connection.execute.restore();
     })
 
@@ -38,11 +38,11 @@ describe('Lists a specific product by its Id', () => {
 
     const id = 1;
 
-    before(() => {
+    beforeEach(() => {
       sinon.stub(connection, 'execute').resolves(resultExec);
     })
 
-    after(() => {
+    afterEach(() => {
       connection.execute.restore();
     })
 

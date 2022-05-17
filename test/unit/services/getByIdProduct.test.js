@@ -9,11 +9,11 @@ describe('Lists a specific product by its Id', () => {
     const resultExec = [];
     const id = 7
 
-    before(() => {
+    beforeEach(() => {
       sinon.stub(productsModel, 'getById').resolves(resultExec);
     })
 
-    after(() => {
+    afterEach(() => {
       productsModel.getById.restore();
     })
 
@@ -34,11 +34,11 @@ describe('Lists a specific product by its Id', () => {
 
     const id = 1;
 
-    before(() => {
+    beforeEach(() => {
       sinon.stub(productsModel, 'getById').resolves(resultExec);
     })
 
-    after(() => {
+    afterEach(() => {
       productsModel.getById.restore();
     })
 

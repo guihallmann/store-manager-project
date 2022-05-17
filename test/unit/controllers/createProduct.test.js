@@ -14,14 +14,14 @@ describe('Chamada do controller create', () => {
       quantity: 5,
     }
 
-    before(() => {
+    beforeEach(() => {
       request.body = {name: 'produto', quantity: 5}
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
       sinon.stub(productsService, 'create').resolves(mock);
     })
 
-    after(() => {
+    afterEach(() => {
       productsService.create.restore();
     })
 

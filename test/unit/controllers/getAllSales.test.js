@@ -8,13 +8,13 @@ describe('Chamada do controller getAll', () => {
     const response = {}
     const request = {}
 
-    before(() => {
+    beforeEach(() => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
       sinon.stub(salesService, 'getAll').resolves(false);
     })
 
-    after(() => {
+    afterEach(() => {
       salesService.getAll.restore();
     })
 
@@ -35,13 +35,13 @@ describe('Chamada do controller getAll', () => {
       quantity: 5,
     }];
 
-    before(() => {
+    beforeEach(() => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
       sinon.stub(salesService, 'getAll').resolves(mock);
     })
 
-    after(() => {
+    afterEach(() => {
       salesService.getAll.restore();
     })
 

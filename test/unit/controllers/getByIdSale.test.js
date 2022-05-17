@@ -8,14 +8,14 @@ describe('Chamada do controller getById', () => {
     const response = {}
     const request = {}
 
-    before(() => {
+    beforeEach(() => {
       request.params = {id: 7}
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
       sinon.stub(salesService, 'getById').resolves(false);
     })
 
-    after(() => {
+    afterEach(() => {
       salesService.getById.restore();
     })
 
@@ -35,14 +35,14 @@ describe('Chamada do controller getById', () => {
       quantity: 10,
     }];
 
-    before(() => {
+    beforeEach(() => {
       request.params = {id: 1}
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
       sinon.stub(salesService, 'getById').resolves(mock);
     })
 
-    after(() => {
+    afterEach(() => {
       salesService.getById.restore();
     })
 

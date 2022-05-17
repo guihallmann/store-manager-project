@@ -8,11 +8,11 @@ describe('Lists all the sales on the DB', () => {
     
     const resultExec = [];
 
-    before(() => {
+    beforeEach(() => {
       sinon.stub(salesModel, 'getAll').resolves(resultExec);
     })
 
-    after(() => {
+    afterEach(() => {
       salesModel.getAll.restore();
     })
 
@@ -32,11 +32,11 @@ describe('Lists all the sales on the DB', () => {
       }
     ];
 
-    before(() => {
+    beforeEach(() => {
       sinon.stub(salesModel, 'getAll').resolves(resultExec);
     })
 
-    after(() => {
+    afterEach(() => {
       salesModel.getAll.restore();
     })
 

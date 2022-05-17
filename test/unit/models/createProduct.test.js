@@ -7,12 +7,12 @@ describe('Inserts a new product on the DB', () => {
   const name = 'Martelo do Thor';
   const quantity = 10;
 
-  before(() => {
+  beforeEach(() => {
     const resultExec = [{ insertId: 1 }];
     sinon.stub(connection, 'execute').resolves(resultExec);
   })
 
-  after(() => {
+  afterEach(() => {
     connection.execute.restore();
   })
   

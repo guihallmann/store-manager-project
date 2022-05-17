@@ -5,12 +5,12 @@ const connection = require('../../../models/connection');
 
 describe('Creates a new saleId on the DB', () => {
 
-  before(() => {
+  beforeEach(() => {
     const resultExec = [{ insertId: 1 }];
     sinon.stub(connection, 'execute').resolves(resultExec);
   })
 
-  after(() => {
+  afterEach(() => {
     connection.execute.restore();
   })
   

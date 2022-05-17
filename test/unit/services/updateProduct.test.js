@@ -13,11 +13,11 @@ describe('Updates a product on the DB', () => {
     quantity
   };
 
-  before(() => {
+  beforeEach(() => {
     sinon.stub(productsModel, 'update').resolves(resultExec);
   })
 
-  after(() => {
+  afterEach(() => {
     productsModel.update.restore();
   })
 

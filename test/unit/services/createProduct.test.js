@@ -13,11 +13,11 @@ describe('Inserts a new product on the DB', () => {
     quantity
   };
 
-  before(() => {
+  beforeEach(() => {
     sinon.stub(productsModel, 'create').resolves(resultExec);
   })
 
-  after(() => {
+  afterEach(() => {
     productsModel.create.restore();
   })
 
