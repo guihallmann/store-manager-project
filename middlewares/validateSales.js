@@ -1,12 +1,26 @@
-const validateSale = (req, res, next) => {
-  req.body.forEach((e) => {
-    if (!e.productId) return res.status(400).json({ message: '"productId" is required' });
-    if (!e.quantity) return res.status(400).json({ message: '"quantity" is required' });
-    if (e.quantity <= 0) {
-      return res.status(422).json({ message: '"quantity" must be greater than or equal to 1' });
-    }
-  });
-  next();
+const handleError = (status, message) => ({ status, message }); 
+
+const validateId = (req, res, next) => {
+  try {
+    req.body.forEach((e) => {
+      if (!e.productId) throw handleError(400, '"productId" is required');
+    });
+    next();
+  } catch (err) {
+    return res.status(err.status).json({ message: err.message });
+  }
 };
 
-module.exports = validateSale;
+const validateQuantity = (req, res, next) => {
+  try {
+    req.body.forEach((e) => {
+      if (e.quantity <= 0) throw handleError(422, '"quantity" must be greater than or equal to 1');
+      if (!e.quantity) throw handleError(400, '"quantity" is required');
+    });
+    next();
+  } catch (err) {
+    return res.status(err.status).json({ message: err.message });
+  }
+};
+
+module.exports = { validateId, validateQuantity };

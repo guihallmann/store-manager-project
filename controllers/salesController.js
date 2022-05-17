@@ -1,12 +1,9 @@
 const salesService = require('../services/salesService');
 
-const getAll = async (req, res, next) => {
-  try {
-    const sales = await salesService.getAll();
-    return res.status(200).json(sales);
-  } catch (err) {
-    next(err);
-  }
+const getAll = async (req, res) => {
+  const sales = await salesService.getAll();
+  if (sales) return res.status(200).json(sales);
+  if (!sales) return res.status(404).json({ message: 'Sale not found' });
 };
 
 const getById = async (req, res) => {
