@@ -1,11 +1,9 @@
 const salesModel = require('../models/salesModel');
 
-const handleError = (status, message) => ({ status, message });
-
 const getAll = async () => {
   const sales = await salesModel.getAll();
   if (sales.length === 0) {
-    throw handleError(404, 'Sales not found');
+    return false;
   }
 
   const formatSales = sales.map((sale) => ({
