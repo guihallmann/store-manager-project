@@ -1,25 +1,26 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const productsController = require('../../../controllers/productsController');
-const productsService = require('../../../services/productsService');
+const salesController = require('../../../controllers/salesController');
+const salesService = require('../../../services/salesService');
 
-describe('Chamada do controller getAll', () => {
-  describe('When there are no products in the DB', () => {
+describe('Chamada do controller getById', () => {
+  describe('When there is no specific sale in the DB', () => {
     const response = {}
     const request = {}
 
     before(() => {
+      request.params = {id: 7}
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
-      sinon.stub(productsService, 'getAll').resolves(false);
+      sinon.stub(salesService, 'getById').resolves(false);
     })
 
     after(() => {
-      productsService.getAll.restore();
+      salesService.getById.restore();
     })
 
     it('Should be called status 404', async () => {
-      await productsController.getAll(request, response);
+      await salesController.getById(request, response);
       expect(response.status.calledWith(404)).to.be.equal(true);
     })
   })
@@ -29,28 +30,29 @@ describe('Chamada do controller getAll', () => {
     const request = {}
 
     const mock = [{
-      id: 1,
-      name: 'produto',
-      quantity: 10
+      date: '2022-05-17T19:25:55.000Z',
+      productId: 1,
+      quantity: 10,
     }];
 
     before(() => {
+      request.params = {id: 1}
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
-      sinon.stub(productsService, 'getAll').resolves(mock);
+      sinon.stub(salesService, 'getById').resolves(mock);
     })
 
     after(() => {
-      productsService.getAll.restore();
+      salesService.getById.restore();
     })
 
     it('Should be called status 200', async () => {
-      await productsController.getAll(request, response);
+      await salesController.getById(request, response);
       expect(response.status.calledWith(200)).to.be.equal(true);
     })
 
     it('Should call json with an array', async () => {
-      await productsController.getAll(request,response);
+      await salesController.getById(request, response);
       expect(response.json.calledWith(sinon.match.array)).to.be.equal(true);
     })
   })

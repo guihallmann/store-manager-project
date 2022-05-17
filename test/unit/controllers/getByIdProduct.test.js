@@ -3,8 +3,8 @@ const sinon = require('sinon');
 const productsController = require('../../../controllers/productsController');
 const productsService = require('../../../services/productsService');
 
-describe.only('Chamada do controller getById', () => {
-  describe('When there is no movie in the DB', () => {
+describe('Chamada do controller getById', () => {
+  describe('When there is no product in the DB', () => {
     const response = {}
     const request = {}
 
@@ -25,7 +25,7 @@ describe.only('Chamada do controller getById', () => {
     })
   })
 
-  describe('When there are movies in the DB', () => {
+  describe('When there are products in the DB', () => {
     const response = {}
     const request = {}
 
@@ -52,7 +52,7 @@ describe.only('Chamada do controller getById', () => {
     })
 
     it('Should call json with an object', async () => {
-      await productsController.getAll(request,response);
+      await productsController.getById(request, response);
       expect(response.json.calledWith(sinon.match.object)).to.be.equal(true);
     })
   })
