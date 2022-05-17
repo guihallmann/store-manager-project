@@ -22,7 +22,7 @@ describe('Lists all the sales on the DB', () => {
     })
   });
   
-  describe('WHEN THERE ARE SALES', () => {
+  describe('When there are sales', () => {
     const resultExec = [
       {
         saleId: 1,
