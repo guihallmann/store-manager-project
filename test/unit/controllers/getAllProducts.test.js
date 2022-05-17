@@ -11,16 +11,16 @@ describe('Chamada do controller getAll', () => {
     before(() => {
       response.status = sinon.stub().returns(response);
       response.json = sinon.stub().returns();
-      sinon.stub(productsService, 'getAll').resolves({ message: 'Product not found'});
+      sinon.stub(productsService, 'getAll').resolves(false);
     })
 
     after(() => {
       productsService.getAll.restore();
     })
 
-    it('é retornado o metodo "status" passando o codigo 404', async () => {
+    it('status called with 404', async () => {
       await productsController.getAll(request, response);
-      console.log(response.status)
+      expect(response.status.calledWith(404).to.be.equal(true));
     })
   })
 });
