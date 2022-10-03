@@ -10,6 +10,6 @@ Você deverá utilizar o banco MySQL para a gestão de dados. Além disso, a API
 
 ## Habilidades
 
-* Desenvolver uma API
+* Desenvolver uma API RESTful
 * Arquitetura MSC (model-service-controller)
 * Fazer operações CRUD no DB MySQL
